@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recovery Genesis | Coach Nimrod Kiprotich - Exercise Physiologist</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9', // Light Blue/Cyan
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            500: '#14b8a6', // Teal
+                            600: '#0d9488',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(12, 74, 110, 0.95) 0%, rgba(3, 105, 161, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+        }
+        .pattern-bg {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-primary-500 selection:text-white">
+
+    <!-- Toast Notification System -->
+    <div id="toast" class="fixed top-24 right-4 z-[100] transform transition-all duration-300 translate-x-full opacity-0 bg-slate-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3">
+        <span class="text-accent-500 text-xl font-bold">✓</span>
+        <p id="toastMessage" class="font-medium"></p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-primary-200">
+                    N
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">RECOVERY <span class="text-primary-600">GENESIS</span></h1>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-0.5">Coach Nimrod Kiprotich</p>
+                </div>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-medium text-slate-600 text-sm">
+                <a href="#about" class="hover:text-primary-600 transition">About</a>
+                <a href="#specialties" class="hover:text-primary-600 transition">Specialties</a>
+                <a href="#approach" class="hover:text-primary-600 transition">My Approach</a>
+                <a href="#contact" class="hover:text-primary-600 transition">Contact</a>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="#contact" class="hidden md:flex bg-slate-900 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-primary-600 transition shadow-md items-center gap-2">
+                Book Assessment
+            </a>
+
+            <!-- Mobile Menu Button (Icon) -->
+            <button class="lg:hidden text-slate-600 hover:text-primary-600" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-slate-100 absolute w-full shadow-xl">
+            <div class="px-4 py-6 flex flex-col gap-4 font-medium text-slate-600 text-center">
+                <a href="#about" class="block hover:text-primary-600" onclick="document.getElementById('mobileMenu').classList.add('hidden')">About</a>
+                <a href="#specialties" class="block hover:text-primary-600" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Specialties</a>
+                <a href="#approach" class="block hover:text-primary-600" onclick="document.getElementById('mobileMenu').classList.add('hidden')">My Approach</a>
+                <a href="#contact" class="block text-primary-600 font-bold" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Book Assessment</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white min-h-[85vh] flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20 z-0"></div> <!-- Extra darkening for text legibility -->
+        
+        <div class="max-w-7xl mx-auto px-4 py-20 relative z-10 w-full grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-left">
+                <span class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-white/10 backdrop-blur-md text-primary-100 text-sm font-semibold mb-6 border border-white/20">
+                    <span class="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></span>
+                    Clinical Exercise Physiologist
+                </span>
+                <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight drop-shadow-lg">
+                    Rebuild Your Body.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">
+                        Reclaim Your Life.
+                    </span>
+                </h2>
+                <p class="text-lg md:text-xl text-slate-200 mb-8 max-w-lg font-light leading-relaxed">
+                    I bridge the gap between physical therapy and peak performance. Evidence-based rehabilitation, chronic condition management, and strength conditioning tailored to your exact physiology.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="bg-primary-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-primary-500 transition shadow-[0_0_20px_rgba(2,132,199,0.4)] text-center text-lg">
+                        Start Your Recovery
+                    </a>
+                    <a href="#specialties" class="bg-transparent border border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition text-center text-lg">
+                        View Specialties
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center gap-6 text-sm text-slate-300 font-medium">
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Evidence-Based</div>
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Holistic Care</div>
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Measurable Results</div>
+                </div>
+            </div>
+            
+            <!-- Hero Graphic / Image Placeholder -->
+            <div class="hidden md:block relative h-full w-full">
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary-600/20 to-transparent rounded-[2rem] transform rotate-3 scale-105"></div>
+                <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=800&q=80" alt="Coach Nimrod assisting a client" class="relative z-10 w-full h-[500px] object-cover rounded-[2rem] shadow-2xl border-4 border-white/10">
+                
+                <!-- Floating stat badge -->
+                <div class="absolute -bottom-6 -left-6 z-20 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4">
+                    <div class="bg-primary-100 p-3 rounded-full text-primary-600">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-black text-slate-900 leading-none">500+</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Recoveries Led</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-4 bg-white">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative order-2 md:order-1">
+                <div class="absolute inset-0 bg-slate-100 transform -translate-x-4 translate-y-4 rounded-3xl -z-10"></div>
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80" alt="Exercise Physiologist consulting" class="rounded-3xl w-full h-[600px] object-cover shadow-lg border border-slate-100">
+            </div>
+            <div class="order-1 md:order-2">
+                <h4 class="text-primary-600 font-bold uppercase tracking-widest text-sm mb-2">Meet Your Coach</h4>
+                <h3 class="text-4xl md:text-5xl font-extrabold mb-6 text-slate-900 leading-tight">Nimrod Kiprotich</h3>
+                <h5 class="text-xl text-slate-500 font-medium mb-8">BSc. Exercise Physiology & Rehabilitation Specialist</h5>
+                
+                <div class="space-y-6 text-lg text-slate-600 leading-relaxed mb-8">
+                    <p>
+                        "Exercise is medicine, but only when prescribed correctly." That is the core philosophy that drives my practice. 
+                    </p>
+                    <p>
+                        As a Clinical Exercise Physiologist, I don't just give you a workout plan. I analyze your biomechanics, understand your medical history, and design highly specific interventions to treat chronic diseases, recover from catastrophic injuries, and optimize human performance.
+                    </p>
+                    <p>
+                        Whether you are a stroke survivor learning to walk again, an athlete returning from an ACL tear, or someone managing diabetes through movement, my goal is to give you the tools and physiological adaptations to thrive.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6 pt-6 border-t border-slate-100">
+                    <div>
+                        <p class="text-3xl font-black text-slate-900 mb-1">10+</p>
+                        <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Years Experience</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-black text-slate-900 mb-1">Certified</p>
+                        <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Clinical Specialist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties Section -->
+    <section id="specialties" class="py-24 px-4 pattern-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <span class="text-primary-600 font-bold uppercase tracking-widest text-sm mb-2 block">Areas of Expertise</span>
+                <h3 class="text-4xl font-extrabold text-slate-900 mb-6">Targeted Physiological Interventions</h3>
+                <p class="text-slate-600 text-lg">We utilize advanced physiological testing and targeted exercise programming to address complex physical challenges.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Specialty 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Cardiac & Stroke Rehab</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Safe, monitored exercise progression for patients recovering from heart attacks, surgeries, or neurological events to restore cardiovascular efficiency and motor control.</p>
+                </div>
+
+                <!-- Specialty 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Chronic Disease Management</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Exercise prescriptions specifically designed to manage and improve outcomes for Diabetes (Type II), Hypertension, Osteoporosis, and Metabolic Syndrome.</p>
+                </div>
+
+                <!-- Specialty 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Musculoskeletal Injury Rehab</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Post-physio strength conditioning to ensure full tissue recovery, correct muscle imbalances, and prevent re-injury for back pain, joint replacements, and ligament tears.</p>
+                </div>
+
+                <!-- Specialty 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Athletic Return to Play</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Bridging the critical gap between medical clearance and competitive sports. Advanced plyometrics, agility, and sports-specific metabolic conditioning.</p>
+                </div>
+
+                <!-- Specialty 5 -->
+                <div class="bg-white p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Geriatric Mobility & Balance</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Specialized resistance and functional balance training to combat sarcopenia (muscle loss), improve bone density, and maintain independence in older adults.</p>
+                </div>
+
+                <!-- Specialty 6 -->
+                <div class="bg-white p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group text-center flex flex-col justify-center items-center bg-slate-50">
+                    <h4 class="text-xl font-bold text-slate-900 mb-4">Need a Custom Plan?</h4>
+                    <p class="text-slate-500 text-sm mb-6">Every body is different. Let's discuss your specific physiological needs.</p>
+                    <a href="#contact" class="inline-block bg-white text-primary-600 border border-primary-200 px-6 py-2 rounded-full font-bold hover:bg-primary-50 transition">Book a Consult</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Process / Approach -->
+    <section id="approach" class="py-24 px-4 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h3 class="text-4xl font-extrabold mb-8">The Genesis Protocol</h3>
+                    <p class="text-slate-400 text-lg mb-12">We don't guess. We assess. Our four-step clinical pathway ensures that your exercise prescription is safe, effective, and continuously adapting to your recovery.</p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center font-black text-xl">1</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Clinical Assessment</h4>
+                                <p class="text-slate-400 text-sm">Comprehensive review of your medical history, biomechanical screening, and baseline physiological testing (VO2, strength, mobility).</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center font-black text-xl">2</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Exercise Prescription</h4>
+                                <p class="text-slate-400 text-sm">Developing a highly specific, dosage-based exercise plan outlining exact modalities, intensities, frequencies, and durations.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center font-black text-xl">3</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Guided Intervention</h4>
+                                <p class="text-slate-400 text-sm">One-on-one coaching to ensure perfect form, appropriate neuromuscular activation, and safety during all movements.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center font-black text-xl">4</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Re-evaluation & Progression</h4>
+                                <p class="text-slate-400 text-sm">Continuous monitoring of metrics to progressively overload your system, driving continuous physiological adaptation and recovery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative h-full min-h-[500px] rounded-3xl overflow-hidden border border-slate-700">
+                    <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="Training Process" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8 bg-black/50 backdrop-blur-md p-6 rounded-2xl border border-white/10">
+                        <p class="text-white italic text-lg font-medium">"The adaptation is always specific to the imposed demand. We ensure the demand is exactly what your body needs to heal."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Booking -->
+    <section id="contact" class="py-24 px-4 bg-white relative">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-slate-50 -z-10 rounded-bl-[100px] hidden md:block"></div>
+        <div class="max-w-6xl mx-auto bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row">
+            
+            <!-- Contact Info Sidebar -->
+            <div class="bg-primary-600 text-white p-12 md:w-2/5 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-3xl font-extrabold mb-4">Let's Get to Work.</h3>
+                    <p class="text-primary-100 mb-8">Ready to take control of your physical health? Schedule your initial clinical assessment today.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-primary-500/50 p-3 rounded-xl"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg></div>
+                            <div>
+                                <p class="text-xs text-primary-200 uppercase font-bold tracking-wider mb-1">Direct Line</p>
+                                <p class="font-bold text-lg">+254 799 008 282</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-primary-500/50 p-3 rounded-xl"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+                            <div>
+                                <p class="text-xs text-primary-200 uppercase font-bold tracking-wider mb-1">Email Support</p>
+                                <p class="font-bold text-lg">consult@recoverygenesis.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-primary-500/50 p-3 rounded-xl"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                            <div>
+                                <p class="text-xs text-primary-200 uppercase font-bold tracking-wider mb-1">Clinic Location</p>
+                                <p class="font-bold text-lg">Eldoret, Kenya</p>
+                                <p class="text-sm text-primary-100">In-clinic & Home Visits Available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12">
+                    <p class="text-sm font-semibold mb-3">Connect on WhatsApp for immediate response:</p>
+                    <a href="https://wa.me/254799008282?text=Hello%20Coach%20Nimrod,%20I%20would%20like%20to%20book%20a%20physiological%20assessment." target="_blank" class="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full font-bold hover:bg-[#1ebd5a] transition shadow-lg w-full justify-center">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.711.928 2.851.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.77-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.614-.087-.112-.708-.94-.708-1.793s.448-1.273.606-1.446c.158-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 3.825 0 6.938 3.112 6.938 6.937 0 3.824-3.113 6.938-6.938 6.938z"/></svg>
+                        Chat with Coach Nimrod
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="p-12 md:w-3/5 bg-white">
+                <h4 class="text-2xl font-bold mb-6 text-slate-900">Request an Appointment</h4>
+                <form onsubmit="handleBooking(event)" class="space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-600 mb-2">First Name</label>
+                            <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-600 mb-2">Last Name</label>
+                            <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-600 mb-2">Email Address</label>
+                        <input type="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-600 mb-2">Primary Reason for Visit</label>
+                        <select class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition appearance-none">
+                            <option>Injury Rehabilitation</option>
+                            <option>Chronic Disease Management</option>
+                            <option>Post-Surgery Recovery</option>
+                            <option>Athletic Performance/Conditioning</option>
+                            <option>General Fitness & Mobility</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-600 mb-2">Brief Description of Condition</label>
+                        <textarea rows="4" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition" placeholder="Tell me a bit about what you're dealing with..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold hover:bg-primary-600 transition shadow-lg text-lg mt-4">
+                        Submit Request
+                    </button>
+                    <p class="text-xs text-slate-500 text-center mt-4">Your health information is kept strictly confidential.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 pt-16 pb-8 text-slate-400 px-4">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 mb-12 border-b border-slate-800 pb-12">
+            <div>
+                <h4 class="text-white text-2xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-primary-500 font-black">N</span> RECOVERY GENESIS
+                </h4>
+                <p class="mb-6 max-w-sm">Elevating physical rehabilitation through clinical exercise physiology. Bridging the gap from injury to absolute peak performance.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#about" class="hover:text-primary-400 transition">About Nimrod</a></li>
+                    <li><a href="#specialties" class="hover:text-primary-400 transition">Specialties & Services</a></li>
+                    <li><a href="#approach" class="hover:text-primary-400 transition">The Protocol</a></li>
+                    <li><a href="#contact" class="hover:text-primary-400 transition">Book Assessment</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Affiliated Brands</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-accent-400 transition flex items-center gap-2"><span class="text-xs bg-accent-500/20 text-accent-400 p-1 rounded">R+</span> Regovery Genesis Heart</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 transition flex items-center gap-2"><span class="text-xs bg-emerald-500/20 text-emerald-400 p-1 rounded">G+</span> Livestock Genesis Plus+</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm">
+            <p>&copy; 2026 Recovery Genesis | Coach Nimrod Kiprotich. All Rights Reserved.</p>
+            <p class="mt-2 md:mt-0">Based in Eldoret, Kenya.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Toast Function
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
+            
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+            }, 4000);
+        }
+
+        // Handle Booking Form Submit
+        function handleBooking(e) {
+            e.preventDefault();
+            showToast("Assessment request received! Coach Nimrod will contact you within 24 hours.");
+            e.target.reset();
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+    </script>
+</body>
+</html>
